@@ -1,0 +1,9 @@
+# Build & Temporary
+*.tmp
+*.log
+.vscode/
+.idea/
+
+# Subsystem repositories are managed independently
+ZeroPlatform/
+ZeroEmbedded/
