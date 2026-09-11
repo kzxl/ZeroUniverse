@@ -9,34 +9,15 @@
 
 ---
 
-## 🏛️ Ecosystem Architecture & Operational Tiers
+## 🏛️ Ecosystem Architecture
 
-ZeroUniverse strictly segregates operational domains, decoupling deterministic, hard real-time silicon execution from high-level data aggregation and visual telemetry:
+ZeroUniverse decouples deterministic, hard real-time silicon execution from high-level data aggregation and visual telemetry via a sovereign dual-tier topology bridged by the **ZeroWire** protocol:
 
-```mermaid
-graph TD
-    subgraph HostTier ["💻 ZeroPlatform (Host & Edge Computing Tier)"]
-        ZP_UI["ZeroUI / ZeroGraphics<br/><i>SCADA, HMI & Virtual Canvas</i>"]
-        ZP_Pipe["ZeroPipeline / ZeroInference<br/><i>Edge AI & Metrology DAG</i>"]
-        ZP_Data["ZeroData / ZeroStorage<br/><i>Gorilla TSDB & Arrow Columnar</i>"]
-        ZP_Comm["ZeroComm<br/><i>Industrial Master Protocol Engine</i>"]
-    end
+- **Host & Edge Computing Tier (`ZeroPlatform`)**: 100% pure C# industrial PC / SCADA framework.
+- **Silicon & Firmware Tier (`ZeroEmbedded`)**: Deterministic `#![no_std]` C + Rust real-time MCU framework.
+- **Interconnect Protocol (`ZeroWire`)**: Noise-resilient, zero-allocation binary transport.
 
-    subgraph WireProtocol ["🔌 ZeroWire / ZeroComm Wire Protocol"]
-        Wire["Deterministic Framed Binary Transport<br/><i>[SOF: 0xAA55][Seq][MsgID][Len][Payload][CRC16-CCITT]</i>"]
-    end
-
-    subgraph FirmwareTier ["⚡ ZeroEmbedded (Silicon & Firmware Tier)"]
-        ZE_Rust["Rust Safety Island<br/><i>Type-State GPIO, DMA Tokens, Parsers</i>"]
-        ZE_Core["C Compatibility Foundation<br/><i>Memory Pools, Arena, SPSC RingBuffer</i>"]
-        ZE_HAL["Type-safe HAL & Drivers<br/><i>ARM Cortex-M, RISC-V, SVD Codegen</i>"]
-        ZE_Tooling["Clang Analyzer & Rules<br/><i>Context Isolation (FW_ISR, FW_DMA)</i>"]
-    end
-
-    %% Flow Connections
-    HostTier <--> WireProtocol
-    WireProtocol <--> FirmwareTier
-```
+👉 **[Read the Full Architecture & Operational Tiers Specification](docs/architect/ecosystem-architecture.md)**
 
 ---
 
@@ -47,23 +28,6 @@ graph TD
 | **Host & Edge** | **[`kzxl/ZeroPlatform`](https://github.com/kzxl/ZeroPlatform)** | **100% Pure C#**<br/>*(.NET 8.0, 4.6.2, Standard 2.0)* | 12 sovereign subsystems: HMI/SCADA controls (`ZeroUI`), Direct3D 11 rendering (`ZeroGraphics`), ONNX inference (`ZeroInference`), TSDB storage (`ZeroStorage`), and DAG pipelines (`ZeroPipeline`). |
 | **Silicon & Firmware** | **[`kzxl/ZeroEmbedded`](https://github.com/kzxl/ZeroEmbedded)** | **Hybrid C99/C11 + Rust**<br/>*(Strictly `#![no_std]`, Zero GC/VM)* | Zero-cost memory safety (`fw_span_t`, pool, arena), lockless SPSC queues, Type-State peripheral drivers, DMA ownership tokens, and compile-time ISR context analyzer. |
 | **Interconnect** | **`ZeroWire` Protocol** | **Shared C-ABI & C# Engine** | Deterministic binary framing with CRC16-CCITT integrity, sliding-window stream resynchronization, and zero-allocation framing. |
-
----
-
-## 🔌 Cross-Tier Interconnect: The ZeroWire Protocol
-
-The physical bridge between **ZeroEmbedded** (running on silicon) and **ZeroPlatform** (running on edge industrial PCs) is defined by the **ZeroWire** framing format:
-
-```text
-+--------------+--------------+---------------+--------------+----------------------+--------------------+-------------------+
-| SOF0 (0xAA)  | SOF1 (0x55)  | Sequence (u8) | MsgID (u8)   | Payload Length (u16) | Payload Data (0..N)| CRC16-CCITT (u16) |
-+--------------+--------------+---------------+--------------+----------------------+--------------------+-------------------+
-|   1 Byte     |   1 Byte     |    1 Byte     |    1 Byte    |       2 Bytes        |     0..256 Bytes   |      2 Bytes      |
-+--------------+--------------+---------------+--------------+----------------------+--------------------+-------------------+
-```
-
-- **Robust against Line Noise**: Integrated `fw_zerowire_stream_sync` automatically recovers valid frames across noisy serial channels (RS-485 / CAN-FD).
-- **High Throughput**: Validated at **32.03 MB/s** decode bandwidth with under **715 ns** frame processing latency.
 
 ---
 
