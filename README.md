@@ -26,9 +26,9 @@ ZeroUniverse decouples deterministic, hard real-time silicon execution from high
 
 | Tier | Repository | Tech Stack | Core Capabilities |
 | :--- | :--- | :--- | :--- |
-| **Host & Edge** | **[`kzxl/ZeroPlatform`](https://github.com/kzxl/ZeroPlatform)** | **100% Pure C#**<br/>*(.NET 8.0, 4.6.2, Standard 2.0)* | 18 sovereign subsystems: HMI/SCADA (`ZeroUI`), Direct3D 11 (`ZeroGraphics`), DataFrame & ORM (`ZeroData`), IoT Protocols (`ZeroIoT`), Vector PDF (`ZeroReports`), Acoustics (`ZeroAudioVisual`), 3D Twin (`ZeroTwin3D`), etc. |
+| **Host & Edge** | **[`kzxl/ZeroPlatform`](https://github.com/kzxl/ZeroPlatform)** | **100% Pure C#**<br/>*(.NET 8.0, 4.6.2, Standard 2.0)* | 21 sovereign subsystems: HMI/SCADA (`ZeroUI`), Direct3D 11 (`ZeroGraphics`), Cryptography & Cyber-Defense (`ZeroSecurity`), DataFrame & ORM (`ZeroData`), TSDB (`ZeroStorage`), IoT Protocols (`ZeroIoT`), Vector PDF (`ZeroReports`), Acoustics (`ZeroAudioVisual`), 3D Twin (`ZeroTwin3D`), etc. |
 | **Silicon & Firmware** | **[`kzxl/ZeroEmbedded`](https://github.com/kzxl/ZeroEmbedded)** | **Hybrid C99/C11 + Rust**<br/>*(Strictly `#![no_std]`, Zero GC/VM)* | Zero-cost memory safety (`fw_span_t`, pool, arena), lockless SPSC queues, Type-State peripheral drivers, DMA ownership tokens, and compile-time ISR context analyzer. |
-| **Desktop App Suite** | **`ZeroApps`** | **C# .NET 8 / 10 WPF & WinForms** | Sovereign consumer & industrial utilities: `ZeroClean`, `ZeroProbe`, `ZeroSync`, `ZeroTalk`, `ZeroTranslate`, `ZeroVision`, `ZeroWall`, `ZeroZip`, and CLI doc engine `ZeroDoc`. |
+| **Desktop App Suite** | **`ZeroApps`** | **C# .NET 8 / 10 WPF & WinForms** | Sovereign consumer & industrial utilities: `ZeroClean`, `ZeroDoc`, `ZeroProbe`, `ZeroRecover`, `ZeroShield` (Industrial EDR + UEBA), `ZeroSync`, `ZeroTalk`, `ZeroTranslate`, `ZeroVision`, `ZeroWall`, and `ZeroZip`. |
 | **Interconnect** | **`ZeroWire` Protocol** | **Shared C-ABI & C# Engine** | Deterministic binary framing with CRC16-CCITT integrity, sliding-window stream resynchronization, and zero-allocation framing. |
 
 ---
