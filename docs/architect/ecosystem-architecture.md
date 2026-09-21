@@ -55,6 +55,15 @@ graph TD
   - **Rust Safety Tier**: Type-state GPIO state machines (`Pin<Input>`, `Pin<Output>`), compile-time DMA ownership tokens (`DmaTransfer<BUF>`).
   - **Tooling & Static Analysis**: Custom Clang-based AST analyzer (`zero_analyzer.py`) verifying execution contexts (`FW_ISR`, `FW_DMA`).
 
+### 2.3 Sovereign Desktop Application Suite (`ZeroApps`)
+- **Target Platform**: High-Performance Operator & Engineering Workstations (Windows x64 / ARM64).
+- **Technology Stack**: C# .NET 8 / 9 / 10 WPF & WinForms, Direct3D 11 / Direct2D Hardware Acceleration (`ZeroGraphics`), Sovereign Design Tokens (`ZeroUI`).
+- **Core Applications**:
+  - **`ZeroStack`**: High-performance computational photography, focus stacking, macro metrology, and 3D surface depth reconstruction powered by Direct3D 11 compute shaders and SIMD AVX2/512.
+  - **`ZeroVision`**: Sovereign darktable-grade non-destructive RAW photo development, AI vision tagging, super-resolution upscaling, and face restoration studio.
+  - **`ZeroShield`**: Industrial endpoint detection and response (EDR + UEBA) platform with kernel ETW event pipelines and MITRE ATT&CK heuristics.
+  - **`ZeroClean` & `ZeroZip`**: Sovereign high-throughput system maintenance, safety file protection, and streaming AES-256-GCM append-mode SFX archives.
+
 ---
 
 ## 3. Cross-Tier Interconnect: The ZeroWire Protocol
