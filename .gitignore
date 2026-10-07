@@ -3,9 +3,15 @@
 *.log
 .vscode/
 .idea/
+[Bb]in/
+[Oo]bj/
+*.user
+
+# Agent scratch & logs
+.agents/
 
 # Subsystem repositories are managed independently
 ZeroPlatform/
 ZeroEmbedded/
 ZeroApps/
-
+ZeroRust/
